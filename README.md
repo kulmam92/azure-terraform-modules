@@ -31,7 +31,7 @@ Create below resources and apply security best practices.
 
 ### [SQL Server on Windows VM](./components/SqlServerWindowsVm/README.md)
 SQL Server on Windows VM is provision by the below workflow.
-<a href="url"><img src="https://raw.githubusercontent.com/kulmam92/azure-terraform-modules/main/docs/images/01.sql-vm-workflow.png" align="middle" height="210" width="450" ></a>
+![](./docs/images/01.sql-vm-workflow.png)
 
 * Terraform
     * Create VNET, Subnets, and NSGs
