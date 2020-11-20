@@ -1,0 +1,39 @@
+---
+- hosts: all
+  gather_facts: false
+
+  # vars_prompt:
+  #   - name: password
+  #     prompt: "Enter ansible user password"
+
+  vars:
+    ansible_user: "{{ ansible_user }}"
+    ansible_password: "{{ ansible_password }}"
+    ansible_connection: winrm
+    ansible_winrm_transport: ntlm
+    ansible_winrm_server_cert_validation: ignore
+
+  tasks:
+  - name: run win_ping
+    win_ping:
+
+  # Setup the StoragePoolcustom module
+  # https://gallery.technet.microsoft.com/scriptcenter/DSC-Resource-Module-to-7bacebdb
+  #
+  # This doesn't support resize or delete
+  #
+  - name: Copy StoragePoolcustom module folder contents recursively
+    ansible.windows.win_copy:
+      src: ./library/StoragePoolcustom
+      dest: C:\Program Files\WindowsPowerShell\Modules
+
+  - name: Create DATA Volume
+    win_dsc:
+      resource_name: "{{ item.resource_name }}"
+      FriendlyName: "{{ item.friendly_name }}"
+      DriveLetter: "{{ item.drive_letter }}"
+      LUNS: "{{ item.luns }}"
+    loop: "{{ storage_pool }}"
+
+# must include ,(comma) at the end
+# ansible-playbook win_ping.yaml -i XXX.XXX.XXX.XXX,

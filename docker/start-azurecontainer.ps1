@@ -1,0 +1,1 @@
+docker run -it -w /home/iacdev --rm --volume ""$PSScriptRoot/../":/home/iacdev/module" iacbase

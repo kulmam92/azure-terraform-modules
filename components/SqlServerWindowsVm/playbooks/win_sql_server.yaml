@@ -1,0 +1,145 @@
+---
+- hosts: all
+  # gather_facts: false
+  # If you set gather_facts to false, facts like ansible_hostname will not be collected.
+  # you will get error when Adjusting Max Server Memory with 'ansible_hostname' is undefined error.
+
+  # vars_prompt:
+  #   - name: password
+  #     prompt: "Enter ansible user password"
+
+  vars:
+    ansible_user: "{{ ansible_user }}"
+    ansible_password: "{{ ansible_password }}"
+    ansible_connection: winrm
+    ansible_winrm_transport: ntlm
+    ansible_winrm_server_cert_validation: ignore
+
+  tasks:
+  - name: run win_ping
+    win_ping:
+
+  roles:
+    - role: mssql-dev-install
+      vars:
+        # installation files source
+        mssql_installation_source: https://go.microsoft.com/fwlink/?linkid=853016
+
+        # Path to download installation media to
+        mssql_installation_path: C:\SQLInstall
+
+        # Temporary path to store downloader
+        mssql_temp_download_path: C:\tmp
+
+        # instance details
+        mssql_instance_name: MSSQLSERVER
+        mssql_drive: F
+        mssql_userdbvol_name: Userdbvol01
+        mssql_port: 1433
+
+        ### Memory Configuration ###
+        # memory in MB
+        # values must be divisible by 512
+
+        # Max memory to allocate to this instance
+        mssql_max_server_memory: 2048
+
+        # Memory to reserve to the OS
+        mssql_os_memory_reservation: 512
+
+        # Total system memory
+        mssql_total_system_memory: "{{ mssql_max_server_memory + mssql_os_memory_reservation }}"
+
+        # Suppress reboots that may occur during SQL Setup tasks
+        # you will want to set this to True if working on a sensitive system:
+        mssql_suppress_reboot: False
+
+        ### Service Accounts ###
+
+        # SQL Service Account
+        # regex statements used in some steps expect the format of CONTOSO\
+        # do not use @CONTOSO.com for these accounts as SQL install will fail
+        mssql_sqlsvc_account: sql_svc
+        mssql_sqlsvc_account_pass: MyPlainTextPassWord01
+
+        # SQL Agent Service Account
+        mssql_agentsvc_account: sql_agt
+        mssql_agentsvc_account_pass: MyPlainTextPassWord01
+
+        ### File and Folder Paths ###
+
+        # volume paths
+        mssql_userdbvol_path: "{{ mssql_drive }}:\\{{ mssql_userdbvol_name }}"
+        mssql_db_accesspath: "{{ mssql_userdbvol_path }}\\DatabaseFiles"
+        mssql_logs_accesspath: "{{ mssql_userdbvol_path }}\\DatabaseLogs"
+
+        # shared files paths
+        mssql_installshared_path: C:\Program Files\Microsoft SQL Server
+        mssql_installsharedwow_path: C:\Program Files (x86)\Microsoft SQL Server
+
+        # instance path
+        mssql_instance_path: "C:\\Program Files\\Microsoft SQL Server\\{{ mssql_instance_name }}"
+
+        # SQL DB and Logging Paths
+        mssql_sqlinstalldata_path: "{{ mssql_db_accesspath }}\\{{mssql_instance_name }}"
+        mssql_sqluserdata_path: "{{ mssql_db_accesspath }}\\{{mssql_instance_name }}"
+        mssql_sqluserlog_path: "{{ mssql_logs_accesspath }}\\{{mssql_instance_name }}"
+        mssql_sqltempDB_path: "C:\\TempDBFiles\\Data\\{{mssql_instance_name }}"
+        mssql_sqltempDBlog_path: "C:\\TempDBFiles\\Log\\{{mssql_instance_name }}"
+
+        # security mode - SQL indicates mixed-mode auth, while Windows indicates Windows Auth.
+        mssql_security_mode: sql
+
+        # SA user password, if security mode is set to 'SQL'
+        # by default for testing we'll be lazy and use the service account password,
+        # but on live systems you should use something else:
+        mssql_sa_password: "{{ mssql_sqlsvc_account_pass }}"
+
+        # features - Comma seperated list of features to be installed
+        # SQLENGINE
+        # REPLICATION
+        # DQ
+        # DQC
+        # BOL
+        # CONN
+        # BC
+        # SDK
+        # MDS
+        # FULLTEXT
+        # RS
+        # AS
+        # IS
+        # SSMS
+        # ADV_SSMS
+        # SSMS and ADV_SSMS parameter feature is only available for SQL Server 2014 and below.
+        mssql_features: SQLENGINE,FULLTEXT,CONN
+
+        # Collation
+        mssql_collation: SQL_Latin1_General_CP1_CI_AS
+
+        # Browser service startup mode
+        # Specifies the startup mode for SQL Server Browser service. { Automatic | Disabled | 'Manual' }
+        mssql_browsersvc_mode: Automatic
+
+        # Default Account Access
+        # Ansible_Admin must be included so that the playbook can make configuration changes post install
+        mssql_sysadmin_accounts:
+          # - CONTOSO\Domain Admins
+          # - CONTOSO\Administrators
+          - Administrators
+
+        # Analysis Services Admins (if installed)
+        mssql_asadmin_accounts: "{{ mssql_sysadmin_accounts }}"
+        mssql_max_degree_of_parallelism: 0
+        mssql_min_server_memory: 0
+
+  tasks:
+  - name: Install SSMS
+    # If Chocolatey is missing from the system, the module will install it.
+    win_chocolatey:
+      name:
+        - sql-server-management-studio
+      state: present
+
+# must include ,(comma) at the end
+# ansible-playbook win_ping.yaml -i XXX.XXX.XXX.XXX,

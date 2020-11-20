@@ -1,0 +1,1 @@
+storage_pool="[{drive_letter:F,friendly_name:DATA,luns:[10,11],resource_name:StoragePool},{drive_letter:G,friendly_name:LOG,luns:[20,21],resource_name:StoragePool}]"

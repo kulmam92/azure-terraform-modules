@@ -1,0 +1,14 @@
+plugin: azure.azcollection.azure_rm
+include_vm_resource_groups:
+   - rg-azusw2-XXXXXX
+auth_source: env
+# batch_fetch: false
+plain_host_names: yes
+conditional_groups:
+   linux: "'linux' in os_profile.system"
+   windows: "'windows' in os_profile.system"
+# adds variables to each host found by this inventory plugin, whose values are the result of the associated expression
+hostvar_expressions:
+   # overrides the default ansible_host value with a custom Jinja2 expression, in this case, the first DNS hostname, or
+   # if none are found, the first public IP address.
+   ansible_host: (public_dns_hostnames + public_ipv4_addresses) | first

@@ -1,0 +1,4 @@
+[windows]
+%{ for index, dns in public-dns ~}
+${dns} ansible_host=${dns} # ${private-id[index]}
+%{ endfor ~}
