@@ -77,11 +77,11 @@ This is a one time setting to do the followings.
 * Create Service Principal
 * Create Key Vault
 * Add environment variables for Terraform
-    'ARM-SUBSCRIPTION-ID' = $subscription.Id
-    'ARM-CLIENT-ID'       = $terraformSP.ApplicationId
-    'ARM-CLIENT-SECRET'   = $servicePrinciplePassword
-    'ARM-TENANT-ID'       = $subscription.TenantId
-    'ARM-ACCESS-KEY'      = $storageAccessKey
+    * 'ARM-SUBSCRIPTION-ID' = $subscription.Id
+    * 'ARM-CLIENT-ID'       = $terraformSP.ApplicationId
+    * 'ARM-CLIENT-SECRET'   = $servicePrinciplePassword
+    * 'ARM-TENANT-ID'       = $subscription.TenantId
+    * 'ARM-ACCESS-KEY'      = $storageAccessKey
 I'm using the script from [adamrushuk/terraform-azure](https://github.com/adamrushuk)
 ```
 Connect-AzAccount -UseDeviceAuthentication

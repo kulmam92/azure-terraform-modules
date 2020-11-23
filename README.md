@@ -1,6 +1,9 @@
 # azure-terraform-modules
 Terraform modules for Azure.
 
+## Development Environment Setup Using Docker
+Follow instruction in [docker](./docker/README.md) to spin up a preconfigured development environment using docker.
+
 ## Components
 
 ### [BasicNetwork](./components/BasicNetwork/README.md)
