@@ -9,11 +9,11 @@
 # Error: Module does not support count
 
 #   on main.tf line 87, in module "storage_account":
-#   87:   count  = var.qlik_storage_account == "true" ? 1 : 0
+#   87:   count  = var.my_storage_account == "true" ? 1 : 0
 
-# Module "storage_account_qlik" cannot be used with count because it contains a
+# Module "storage_account_my" cannot be used with count because it contains a
 # nested provider configuration for "random", at
-# .terraform/modules/storage_account_qlik.naming/main.tf:1,10-18.
+# .terraform/modules/storage_account_my.naming/main.tf:1,10-18.
 
 # This module can be made compatible with count by changing it to receive all of
 # its provider configurations from the calling module, by using the "providers"

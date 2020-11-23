@@ -1,4 +1,4 @@
-# Base code: https://github.com/avinor/terraform-azurerm-event-hubs
+# Base code: N/A
 locals {
   user_aad_admin = var.aad_admin_type == "user" ? { lower("${var.aad_admin_login}-${var.aad_admin_type}") : var.aad_admin_login } : {}
 

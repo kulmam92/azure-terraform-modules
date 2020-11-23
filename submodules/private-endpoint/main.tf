@@ -31,7 +31,6 @@ resource "azurerm_private_dns_zone" "main" {
   tags                = var.tags
 }
 
-# Need to change to support multiple endpoints
 resource "azurerm_private_endpoint" "main" {
   for_each = var.private_endpoints
 
