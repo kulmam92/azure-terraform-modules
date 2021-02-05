@@ -1,5 +1,5 @@
 # StandardAKS
-Terraform modules to Provision ASK and bootstrap using ArgoCD AppOfApps pattern.
+Terraform modules to provision ASK and bootstrap using ArgoCD AppOfApps pattern.
 
 ## Base Code
 [Azure/terraform-azurerm-aks](https://github.com/Azure/terraform-azurerm-aks)
@@ -9,7 +9,7 @@ Terraform modules to Provision ASK and bootstrap using ArgoCD AppOfApps pattern.
 ## Diagram
 This is what you will be getting.
 
-<a href="url"><img src="../../docs/images/03.AKS-architecture.png" align="middle" height="210" width="450" ></a>
+![](../../docs/images/03.AKS-architecture.png)
 
 * Terraform
     * Create VNET, Subnets, and NSGs.
@@ -32,7 +32,7 @@ This is what you will be getting.
       * AKV2K8S - Manage secret using Azure Key Vault.
       * ArgoCD + KSOPS - Continuous delivery, Secret management using SOPS.
         * AKS bootstrap app
-* ArgoCD Bootstrap APP
+* ArgoCD Bootstrap APP Using [kulmam92/aks-argocd-bootstrap](https://github.com/kulmam92/aks-argocd-bootstrap)
     * Minio - Expose Azure storage as S3 compatible storage.
     * Kube-Prometheus-Stack - Monitoring.
     * K8S config App - Any K8S cluster level config.

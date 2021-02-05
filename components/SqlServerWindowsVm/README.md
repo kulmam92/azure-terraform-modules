@@ -8,7 +8,8 @@ Terraform modules to deploy SQL Server on Azure VM.
 
 ## Workflow
 SQL Server on Windows VM is provision by the below workflow.
-<a href="url"><img src="../../docs/images/01.sql-vm-workflow.png" align="middle" height="210" width="450" ></a>
+
+![](../../docs/images/01.sql-vm-workflow.png)
 
 * Terraform
     * Create a VNET, Subnets, and NSGs
