@@ -2,11 +2,9 @@
 Terraform modules to provision AKS and bootstrap using ArgoCD AppOfApps pattern.
 
 ## Base Code
-[Azure/terraform-azurerm-aks](https://github.com/Azure/terraform-azurerm-aks)
-
-[avinor/terraform-azurerm-kubernetes](https://github.com/avinor/terraform-azurerm-kubernetes)
-
-[patuzov/terraform-private-aks](https://github.com/patuzov/terraform-private-aks)
+* [Azure/terraform-azurerm-aks](https://github.com/Azure/terraform-azurerm-aks)
+* [avinor/terraform-azurerm-kubernetes](https://github.com/avinor/terraform-azurerm-kubernetes)
+* [patuzov/terraform-private-aks](https://github.com/patuzov/terraform-private-aks)
 
 
 ## Diagram
@@ -42,7 +40,9 @@ This is what you will be getting.
 
 ## Usage
 Example showing deployment of Bootstrapped AKS.
+
 Sample script to deploy is in /test/fixture.
+
 Make sure to replace any thing that starts with "<My-" from the ./test/fixture/terraform.tfvars file before use that.
 
 ```terraform
