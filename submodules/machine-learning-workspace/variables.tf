@@ -37,10 +37,10 @@ variable "storage_account_replication_type" {
 variable "storage_account_network_rules" {
   description = "default_action - (Required) Specifies the default action of allow or deny when no other rules match. Valid options are Deny or Allow. bypass - (Optional) Specifies whether traffic is bypassed for Logging/Metrics/AzureServices. Valid options are any combination of Logging, Metrics, AzureServices, or None. ip_rules - (Optional) List of public IP or IP ranges in CIDR Format. Only IPV4 addresses are allowed. Private IP address ranges (as defined in RFC 1918) are not allowed. virtual_network_subnet_ids - (Optional) A list of resource ids for subnets."
   type = list(object({
-    default_action                 = string
-    bypass                         = list(string)
-    ip_rules                       = list(string)
-    virtual_network_subnet_ids     = list(string)
+    default_action             = string
+    bypass                     = list(string)
+    ip_rules                   = list(string)
+    virtual_network_subnet_ids = list(string)
   }))
   default = []
 }
@@ -65,9 +65,9 @@ variable "key_vault_secrets" {
 
 variable "key_vault_network_acls" {
   description = "Object with attributes: `bypass`, `default_action`, `ip_rules`, `virtual_network_subnet_ids`. See https://www.terraform.io/docs/providers/azurerm/r/key_vault.html#bypass for more informations."
-  default     = {
-    default_action = "Deny"
-    bypass         = "AzureServices"
+  default = {
+    default_action             = "Deny"
+    bypass                     = "AzureServices"
     ip_rules                   = []
     virtual_network_subnet_ids = []
   }
@@ -77,6 +77,16 @@ variable "key_vault_network_acls" {
     ip_rules                   = list(string),
     virtual_network_subnet_ids = list(string),
   })
+}
+
+variable "key_vault_role_assignments" {
+  description = "A list of role assignments (permissions) to apply in the specified scope. Each role assignment object should provide the display name of the target principal, a built-in role that will be given to the target principal,  and the principal type (which can be a user, group, or service_principal)."
+  default     = []
+  type = list(object({
+    name = string
+    role = string
+    type = string
+  }))
 }
 
 variable "machine_learning_workspace_sku_name" {

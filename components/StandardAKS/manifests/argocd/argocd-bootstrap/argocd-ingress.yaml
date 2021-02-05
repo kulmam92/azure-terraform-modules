@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: argocd-server-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /argo-cd/$2
+spec:
+  rules:
+  - http:
+      paths:
+        - path: /argo-cd(/|$)(.*)
+          pathType: Prefix
+          backend:
+            service:
+              name: argocd-server
+              port:
+                number: 443
+    # ${_KUSVAR_XXX} will be replaces using template_file replace when applied using Terraform.
+    host: ${_KUSVAR_FQDN}

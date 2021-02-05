@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bootstrap-cluster
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: argocd
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    repoURL: https://github.com/kulmam92/argocd-test.git
+    targetRevision: HEAD
+    path: applications/bootstrap-cluster
+    helm:
+      parameters:
+      - name:  hosts
+        value: {_KUSVAR_FQDN}
+      - name: acme_email
+        value: {_KUSVAR_ACME_EMAIL}
+      valueFiles:
+        - values.yaml
+  syncPolicy:
+    automated:
+      prune: true
+    validate: true

@@ -1,0 +1,142 @@
+# https://github.com/argoproj/argo-helm/blob/master/charts/argo-cd/values.yaml
+argo-cd:
+  installCRDs: false
+  global:
+    image:
+      tag: v1.8.1
+#################################
+## Controller
+#################################
+  controller:
+    ## Server metrics controller configuration
+    metrics:
+      enabled: false
+      service:
+        annotations: {}
+        labels: {}
+        servicePort: 8082
+      serviceMonitor:
+        enabled: false
+      #   selector:
+      #     prometheus: kube-prometheus
+      #   namespace: monitoring
+      #   additionalLabels: {}
+      rules:
+        enabled: false
+        spec: []
+        # - alert: ArgoAppMissing
+        #   expr: |
+        #     absent(argocd_app_info)
+        #   for: 15m
+        #   labels:
+        #     severity: critical
+        #   annotations:
+        #     summary: "[ArgoCD] No reported applications"
+        #     description: >
+        #       ArgoCD has not reported any applications data for the past 15 minutes which
+        #       means that it must be down or not functioning properly.  This needs to be
+        #       resolved for this cloud to continue to maintain state.
+        # - alert: ArgoAppNotSynced
+        #   expr: |
+        #     argocd_app_info{sync_status!="Synced"} == 1
+        #   for: 12h
+        #   labels:
+        #     severity: warning
+        #   annotations:
+        #     summary: "[{{`{{$labels.name}}`}}] Application not synchronized"
+        #     description: >
+        #       The application [{{`{{$labels.name}}`}} has not been synchronized for over
+        #       12 hours which means that the state of this cloud has drifted away from the
+        #       state inside Git.
+      #   selector:
+      #     prometheus: kube-prometheus
+      #   namespace: monitoring
+      #   additionalLabels: {}
+    ## Enable Admin ClusterRole resources.
+    ## Enable if you would like to grant rights to ArgoCD to deploy to the local Kubernetes cluster.
+    clusterAdminAccess:
+      enabled: true
+#################################
+## server
+#################################
+  server:
+    extraArgs:
+      - argocd-server
+      - --staticassets
+      - /shared/app
+      - --repo-server
+      - argocd-repo-server:8081
+      - --insecure
+      # path based routing
+      - --rootpath
+      - /argo-cd
+    ## Server metrics service configuration
+    metrics:
+      enabled: false
+      service:
+        annotations: {}
+        labels: {}
+        servicePort: 8083
+      serviceMonitor:
+        enabled: false
+      #   selector:
+      #     prometheus: kube-prometheus
+      #   namespace: monitoring
+      #   additionalLabels: {}
+    ingress:
+      enabled: false
+    ingressGrpc:
+      enabled: false
+#################################
+## config
+#################################
+  config:
+    repositories: |
+      - url: https://github.com/kulmam92/argocd-test.git
+      - url: https://github.com/argoproj/argo-rollouts.git
+      - type: helm
+        name: argo-cd
+        url: https://argoproj.github.io/argo-helm
+      - url: https://github.com/istio/istio.git
+      - type: helm
+        url: https://charts.helm.sh/stable
+        name: stable
+      - type: helm
+        url: https://charts.helm.sh/incubator
+        name: incubator
+      - type: helm
+        url: https://kubernetes.github.io/ingress-nginx
+        name: ingress-nginx
+      - type: helm
+        url: https://charts.jetstack.io
+        name: cert-manager
+      - type: helm
+        url: https://helm.min.io/
+        name: minio
+      - type: helm
+        url: https://raw.githubusercontent.com/Azure/secrets-store-csi-driver-provider-azure/master/charts
+        name: csi-secrets-store-provider-azure
+      - type: helm
+        url: https://raw.githubusercontent.com/Azure/aad-pod-identity/master/charts
+        name: aad-pod-identity
+      - type: helm
+        url: https://helm.linkerd.io/stable
+        name: linkerd
+      - type: helm
+        url: https://open-policy-agent.github.io/gatekeeper/charts
+        name: gatekeeper
+      - type: helm
+        url: https://jaegertracing.github.io/helm-charts
+        name: jaegertracing
+      - type: helm
+        url: https://falcosecurity.github.io/charts
+        name: falcosecurity
+      - type: helm
+        url: https://kubernetes-charts.banzaicloud.com
+        name: banzaicloud-stable
+      - type: helm
+        url: https://helm.k8ssandra.io/
+        name: k8ssandra
+      - type: helm
+        url: https://prometheus-community.github.io/helm-charts
+        name: prometheus-community

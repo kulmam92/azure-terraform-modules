@@ -51,10 +51,13 @@ module "key_vault" {
   access_policies     = var.key_vault_access_policies
   secrets             = var.key_vault_secrets
   network_acls        = var.key_vault_network_acls
-  component           = var.component
-  environment         = var.environment
-  datacenter          = var.datacenter
-  product             = var.product
+  role_assignments    = var.key_vault_role_assignments
+
+  account_short_name = var.account_short_name
+  component          = var.component
+  environment        = var.environment
+  datacenter         = var.datacenter
+  product            = var.product
 }
 
 resource "azurerm_container_registry" "main" {

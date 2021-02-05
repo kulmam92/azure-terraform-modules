@@ -1,0 +1,20 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-server
+spec:
+  template:
+    spec:
+      containers:
+      - command:
+          - argocd-server
+          - --staticassets
+          - /shared/app
+          - --repo-server
+          - argocd-repo-server:8081
+          - --insecure
+          - --rootpath
+          - /argo-cd
+        name: argocd-server
+        image: argoproj/argocd:latest

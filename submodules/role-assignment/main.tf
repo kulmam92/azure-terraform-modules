@@ -24,7 +24,7 @@ data "azuread_user" "main" {
 data "azuread_group" "main" {
   for_each = local.group_role_assignments
 
-  name = each.value.name
+  display_name = each.value.name
 }
 
 data "azuread_service_principal" "main" {

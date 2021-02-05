@@ -52,3 +52,7 @@ Create below resources.
 * Synapse role assignment
 * Dedicated SQL Pool
 * Private endpoint
+
+### [AKS Bootstrapped using ArgoCD](./components/StandardAKS/README.md)
+Provision ASK and bootstrap using ArgoCD AppOfApps pattern.
+![](./docs/images/03.AKS-architecture.png)

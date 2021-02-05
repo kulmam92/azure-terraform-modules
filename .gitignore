@@ -74,3 +74,5 @@ override.tf.json
 
 # Vagrant artifacts
 .vagrant
+.vscode/settings.json
+components/StandardAKS/test/fixture/private_ssh_key

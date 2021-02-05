@@ -1,0 +1,54 @@
+# https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/argocd-cm.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+data:
+  # KSOPS setting
+  kustomize.buildOptions: "--enable_alpha_plugins"
+  repositories: |
+    - url: https://github.com/kulmam92/argocd-test.git
+    - url: https://github.com/argoproj/argo-rollouts.git
+    - url: https://github.com/istio/istio.git
+    - type: helm
+      url: https://charts.helm.sh/stable
+      name: stable
+    - type: helm
+      url: https://charts.helm.sh/incubator
+      name: incubator
+    - type: helm
+      url: https://kubernetes.github.io/ingress-nginx
+      name: ingress-nginx
+    - type: helm
+      url: https://charts.jetstack.io
+      name: cert-manager
+    - type: helm
+      url: https://helm.min.io/
+      name: minio
+    - type: helm
+      url: https://raw.githubusercontent.com/Azure/secrets-store-csi-driver-provider-azure/master/charts
+      name: csi-secrets-store-provider-azure
+    - type: helm
+      url: https://raw.githubusercontent.com/Azure/aad-pod-identity/master/charts
+      name: aad-pod-identity
+    - type: helm
+      url: https://helm.linkerd.io/stable
+      name: linkerd
+    - type: helm
+      url: https://open-policy-agent.github.io/gatekeeper/charts
+      name: gatekeeper
+    - type: helm
+      url: https://jaegertracing.github.io/helm-charts
+      name: jaegertracing
+    - type: helm
+      url: https://falcosecurity.github.io/charts
+      name: falcosecurity
+    - type: helm
+      url: https://kubernetes-charts.banzaicloud.com
+      name: banzaicloud-stable
+    - type: helm
+      url: https://helm.k8ssandra.io/
+      name: k8ssandra
+    - type: helm
+      url: https://prometheus-community.github.io/helm-charts
+      name: prometheus-community
