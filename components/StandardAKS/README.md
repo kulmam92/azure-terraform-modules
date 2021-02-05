@@ -8,6 +8,7 @@ Terraform modules to Provision ASK and bootstrap using ArgoCD AppOfApps pattern.
 
 ## Diagram
 This is what you will be getting.
+
 <a href="url"><img src="../../docs/images/03.AKS-architecture.png" align="middle" height="210" width="450" ></a>
 
 * Terraform
