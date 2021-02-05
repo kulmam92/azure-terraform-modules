@@ -221,12 +221,7 @@ tags = {
   DataCenter    = "WestUS2"
   Environment   = "Sandbox"
   Terraform     = true
-  TerraformPath = "components/SqlServerWindowsVM/test"
-
-  # delete this when check-in
-  CostCenter    = 1052
-  Department    = "InformationTechnology"
-  SupportGroup  = "Infrastructure"
+  TerraformPath = "components/StandardAKS/test"
 }
 #################################
 # Vnet
