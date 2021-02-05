@@ -1,5 +1,5 @@
 # StandardAKS
-Terraform modules to provision ASK and bootstrap using ArgoCD AppOfApps pattern.
+Terraform modules to provision AKS and bootstrap using ArgoCD AppOfApps pattern.
 
 ## Base Code
 [Azure/terraform-azurerm-aks](https://github.com/Azure/terraform-azurerm-aks)
