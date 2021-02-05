@@ -3,7 +3,8 @@ product            = "AKSTest"
 environment        = "Sandbox"
 datacenter         = "WestUS2"
 location           = "WestUS2"
-account_short_name = "aks"component          = "AKSTest"
+account_short_name = "aks"
+component          = "AKSTest"
 product            = "AKSTest"
 environment        = "Sandbox"
 datacenter         = "WestUS2"
@@ -14,11 +15,6 @@ tags = {
   Environment   = "Sandbox"
   Terraform     = true
   TerraformPath = "components/SqlServerWindowsVM/test"
-
-  # delete this when check-in
-  CostCenter    = 1052
-  Department    = "InformationTechnology"
-  SupportGroup  = "Infrastructure"
 }
 #################################
 # Vnet
@@ -91,13 +87,13 @@ vnet_networking_object = {
 #################################
 # AKS cluster
 aks_private_cluster_enabled = false
-aks_dns_prefix              = "ldaks"
+aks_dns_prefix              = "<MY-DNS-PREFIX>"
 aks_sku_tier                = "Paid" # Paid/Free
 # aks_kubernetes_version               = "1.18.10" # 1.9.3
-aks_api_server_authorized_ip_ranges = "[<My-IP-Address>]"
+aks_api_server_authorized_ip_ranges = "[<MY-IP-Address>]"
 # aks_node_resource_group              = null
 aks_linux_profile     = { username = "aksadmin", ssh_key = "" }
-aks_windows_profile   = { username = "aksadmin", password = "<My-password>" }
+aks_windows_profile   = { username = "aksadmin", password = "<MY-password>" }
 aks_service_principal = null # cluster infrastructure authentication - identity
 aks_addons = {
   http_application_routing        = false
@@ -143,7 +139,7 @@ aks_agent_pools = [
 # RBAC
 aks_enable_role_based_access_control = true
 aks_rbac_aad_managed                 = true
-aks_rbac_aad_admin_group_names       = ["<My-ADD-Admin-Group>"]
+aks_rbac_aad_admin_group_names       = ["<MY-ADD-Admin-Group>"]
 # aks_rbac_azure_active_directory      = # don't set when rbac_aad_managed = true
 #################################
 # log analytics
@@ -167,15 +163,15 @@ aks_log_retention_in_days          = 7      # 30
 # Configure cluster
 # "ServiceAccount", "User", "Group"
 aks_admins = [
-  { kind = "User", name = "<My-email>" },
-  { kind = "Group", name = "<My-AD-group-admin-email>" }
+  { kind = "User", name = "<MY-email>" },
+  { kind = "Group", name = "<MY-AD-group-admin-email>" }
 ]
 # aks_service_accounts                 = # List of service accounts to create and their roles
 #################################
 # Run "htpasswd -c auth admin" to generate auth
 # username should be admin. KubernetesIsCool is password in this example
 aks_prometheus_basic_auth = "admin:$apr1$8spKbCh4$2b8tAg9lWYiy8XtNF6hqb/"
-aks_cert_manager_acme_email = "<My-email>"
+aks_cert_manager_acme_email = "<MY-email>"
 
 #################################
 # storage account
@@ -194,25 +190,25 @@ storage_account_shares = [
 # key vault
 key_vault_sku_name = "premium"
 key_vault_enable_rbac_authorization = true
-key_vault_network_acls_ip_rules = ["<My-IP-Address>"]
+key_vault_network_acls_ip_rules = ["<MY-IP-Address>"]
 key_vault_role_assignments = [
   {
-    name = "<My-email>"
+    name = "<MY-email>"
     role = "Key Vault Administrator"
     type = "user"
   },
   {
-    name = "<My-AD-admin-group>"
+    name = "<MY-AD-admin-group>"
     role = "Key Vault Administrator"
     type = "group"
   },
   {
-    name = "<My-email>"
+    name = "<MY-email>"
     role = "Key Vault Secrets Officer"
     type = "user"
   },
   {
-    name = "<My-AD-admin-group>"
+    name = "<MY-AD-admin-group>"
     role = "Key Vault Secrets Officer"
     type = "group"
   },
@@ -251,7 +247,7 @@ vnet_networking_object = {
           protocol                   = "Tcp"
           source_port_range          = "*"
           destination_port_range     = "22"
-          source_address_prefix      = "<My-IP-Address>"
+          source_address_prefix      = "<MY-IP-Address>"
           destination_address_prefix = "*"
         },
         # HTTPS
@@ -297,10 +293,10 @@ aks_private_cluster_enabled = false
 aks_dns_prefix              = "ldaks"
 aks_sku_tier                = "Paid" # Paid/Free
 # aks_kubernetes_version               = "1.18.10" # 1.9.3
-aks_api_server_authorized_ip_ranges = ["<My-IP-Address>"]
+aks_api_server_authorized_ip_ranges = ["<MY-IP-Address>"]
 # aks_node_resource_group              = null
 aks_linux_profile     = { username = "aksadmin", ssh_key = "" }
-aks_windows_profile   = { username = "aksadmin", password = "<My-password>" }
+aks_windows_profile   = { username = "aksadmin", password = "<MY-password>" }
 aks_service_principal = null # cluster infrastructure authentication - identity
 aks_addons = {
   http_application_routing        = false
@@ -346,7 +342,7 @@ aks_agent_pools = [
 # RBAC
 aks_enable_role_based_access_control = true
 aks_rbac_aad_managed                 = true
-aks_rbac_aad_admin_group_names       = ["<My-ADD-Admin-Group>"]
+aks_rbac_aad_admin_group_names       = ["<MY-ADD-Admin-Group>"]
 # aks_rbac_azure_active_directory      = # don't set when rbac_aad_managed = true
 #################################
 # log analytics
@@ -370,15 +366,15 @@ aks_log_retention_in_days          = 7      # 30
 # Configure cluster
 # "ServiceAccount", "User", "Group"
 aks_admins = [
-  { kind = "User", name = "<My-email>" },
-  { kind = "Group", name = "<My-AD-group-admin-email>" }
+  { kind = "User", name = "<MY-email>" },
+  { kind = "Group", name = "<MY-AD-group-admin-email>" }
 ]
 # aks_service_accounts                 = # List of service accounts to create and their roles
 #################################
 # Run "htpasswd -c auth admin" to generate auth
 # username should be admin. KubernetesIsCool is password in this example
 aks_prometheus_basic_auth = "admin:$apr1$8spKbCh4$2b8tAg9lWYiy8XtNF6hqb/"
-aks_cert_manager_acme_email = "<My-email>"
+aks_cert_manager_acme_email = "<MY-email>"
 
 #################################
 # storage account
@@ -397,25 +393,25 @@ storage_account_shares = [
 # key vault
 key_vault_sku_name = "premium"
 key_vault_enable_rbac_authorization = true
-key_vault_network_acls_ip_rules = ["<My-IP-Address>"]
+key_vault_network_acls_ip_rules = ["<MY-IP-Address>"]
 key_vault_role_assignments = [
   {
-    name = "<My-email>"
+    name = "<MY-email>"
     role = "Key Vault Administrator"
     type = "user"
   },
   {
-    name = "<My-AD-admin-group>"
+    name = "<MY-AD-admin-group>"
     role = "Key Vault Administrator"
     type = "group"
   },
   {
-    name = "<My-email>"
+    name = "<MY-email>"
     role = "Key Vault Secrets Officer"
     type = "user"
   },
   {
-    name = "<My-AD-admin-group>"
+    name = "<MY-AD-admin-group>"
     role = "Key Vault Secrets Officer"
     type = "group"
   },
