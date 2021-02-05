@@ -41,9 +41,9 @@ This is what you will be getting.
 ## Usage
 Example showing deployment of Bootstrapped AKS.
 
-Sample script to deploy is in /test/fixture.
+Sample script to deploy is in `/test/fixture`.
 
-Make sure to replace any thing that starts with "<My-" from the ./test/fixture/terraform.tfvars file before use that.
+Make sure to replace any thing that starts with "<My-" from the `./test/fixture/terraform.tfvars` file before use that.
 
 ```terraform
 component          = "AKSTest"
