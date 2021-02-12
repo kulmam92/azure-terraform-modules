@@ -76,3 +76,4 @@ override.tf.json
 .vagrant
 .vscode/settings.json
 components/StandardAKS/test/fixture/private_ssh_key
+components/StandardAKS/test/fixture/.terraform.lock.hcl
